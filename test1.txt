@@ -1,0 +1,19 @@
+from pandas_profiling import ProfileReport
+
+# 1. Profile the whole dataframe (minimal report)
+profile = ProfileReport(df, minimal=True)
+profile.to_file("output.html")
+
+# 2. Sample 10,000 rows
+sample = df.sample(10000)
+profile = ProfileReport(sample, minimal=True)
+profile.to_file("output.html")
+
+# 3. Sample 5% of the dataframe (with custom description)
+description = "Disclaimer: this profiling report was generated using a sample of 5% of the original dataset."
+sample = df.sample(frac=0.05)
+
+profile = ProfileReport(sample, minimal=True)
+profile.set_variable('description', description)  # If you want to set a custom description in the report
+
+profile.to_file("output.html")
